@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from './App';
-import Main from './Main.jsx';
-import SignIn from './SignIn.jsx';
-import SignUp from './SignUp.jsx';
-import Todo from './Todo.jsx';
+import Main from './pages/Main.jsx';
+import SignIn from './pages/SignIn.jsx';
+import SignUp from './pages/SignUp.jsx';
+import Todo from './pages/Todo.jsx';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
-import GlobalStyle from './globalstyle';
-import Nav from './Nav.jsx';
+import GlobalStyle from './style/globalstyle';
+import Nav from './component/Nav.jsx';
 function App() {
   return (
     <div className="App">
