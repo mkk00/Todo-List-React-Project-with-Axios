@@ -7,6 +7,7 @@ module.exports = {
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        'plugin:react/jsx-runtime',
         "plugin:import/recommended",
         "plugin:react-hooks/recommended",
 		"plugin:jsx-a11y/recommended",
@@ -25,6 +26,7 @@ module.exports = {
 		"jsx-a11y",
     ],
     "rules": {
+        "import/no-unresolved": "off",
 		"react-hooks/rules-of-hooks": "error",
 		"react-hooks/exhaustive-deps": "warn",
         "no-console": "warn",
