@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-function FormButton({title, type, pointColor, onClick}){
+function FormButton({title, type, pointColor, onClick, testid}){
   return(
-    <Submit pointColor={pointColor} title={title} type={type} onClick={onClick}>
+    <Submit data-testid={testid} pointColor={pointColor} title={title} type={type} onClick={onClick}>
       {title}
     </Submit>
   )

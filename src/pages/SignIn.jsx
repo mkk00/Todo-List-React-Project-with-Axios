@@ -12,12 +12,12 @@ function SignIn() {
       <Form>
         <fieldset>
           <legend>로그인 폼</legend>
-          <FormInput className="a11yHidden" id="loginId" placeholder="아이디" label="아이디" name="login" type="text" />
-          <FormInput className="a11yHidden" id="loginPassword" placeholder="비밀번호" label="비밀번호" name="password" type="text" />
+          <FormInput className="a11yHidden" testid="email-input" id="loginId" placeholder="이메일" label="이메일" name="login" type="text" />
+          <FormInput className="a11yHidden" testid="password-input" id="loginPassword" placeholder="비밀번호" label="비밀번호" name="password" type="text" />
         </fieldset>
         <div className="buttonBox">
-          <FormButton title="로그인" type="button" pointColor />
-          <FormButton title="회원가입" type="button" pointColor />
+          <FormButton testid="signin-button" title="로그인" type="button" pointColor />
+          <FormButton testud="signup-button" title="회원가입" type="button" pointColor />
         </div>
       </Form>
     </section>
