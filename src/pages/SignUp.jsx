@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"; 'react';
+import { useState } from "react"; 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -10,32 +10,37 @@ import Divider from "../component/divider";
 function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errormsg, setErrormsg] = useState('');
+  const [emailErrormsg, setEmailErrormsg] = useState('');
+  const [passwordErrormsg, setPasswordErrormsg] = useState('');
 
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     const currentValue = e.target.value;
     setEmail(currentValue);
+    
     if(!currentValue){
-      setErrormsg('이메일을 입력해주세요.');
+      setEmailErrormsg('이메일을 입력해주세요.');
     } else if(currentValue.trim() === ''){
-      setErrormsg('공백문자는 사용할 수 없습니다.');      
+      setEmailErrormsg('공백문자는 사용할 수 없습니다.');      
     } else if(!currentValue.includes('@')){
-      setErrormsg('@는 반드시 포함되어야 합니다.');
+      setEmailErrormsg('@는 반드시 포함되어야 합니다.');
     } else if(currentValue.split('@').length > 2){
-      setErrormsg('@는 한번만 사용 가능합니다.');
+      setEmailErrormsg('@는 한번만 사용 가능합니다.');
     } else{
-      setErrormsg('');
+      setEmailErrormsg('');
     }
   }
-
-  useEffect(()=>{
-
-  }, [email,password, errormsg])
   
   const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    const currentValue = e.target.value;
+    setPassword(currentValue);
+
+    if(!(currentValue.length >= 8)){
+      setPasswordErrormsg('비밀번호는 8자 이상이어야 합니다.');
+    } else{
+      setPasswordErrormsg('');
+    }
   }
 
   const handleSubmit = (e) => {
@@ -56,7 +61,8 @@ function SignUp() {
           <legend>회원가입 폼</legend>
           <FormInput label="이메일" name="email" placeholder="mkk@email.com" testid="email-input" type="eamil" value={email} onChange={handleEmailChange} />
           <FormInput label="비밀번호" name="password" placeholder="비밀번호" testid="password-input" type="password" value={password} onChange={handlePasswordChange} />
-          <p>{errormsg}</p>
+          <p>{emailErrormsg}</p>
+          <p>{passwordErrormsg}</p>
           <ButtonBox>
             <FormButton title="취소" type="button" onClick={handleBackPage} />
             <FormButton testid="signup-button" title="회원가입" type="button" pointColor onClick={handleSubmit} />
@@ -80,8 +86,7 @@ const Form = styled.form`
   p{
     text-align: center;
     color: red;
-    margin-top: 20px;
-    height: 10px;
+    height: 15px;
   }
 `
 
