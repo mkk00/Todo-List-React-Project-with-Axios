@@ -16,7 +16,7 @@ function SignIn() {
           <FormInput className="a11yHidden" testid="password-input" id="loginPassword" placeholder="비밀번호" label="비밀번호" name="password" type="text" />
         </fieldset>
         <div className="buttonBox">
-          <FormButton testid="signin-button" title="로그인" type="button" pointColor />
+          <FormButton testid="signin-button" title="로그인" type="button" />
           <FormButton testud="signup-button" title="회원가입" type="button" pointColor />
         </div>
       </Form>
