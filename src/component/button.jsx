@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-function FormButton({title, type, className, pointColor, onClick, testid, unActive}){
+function FormButton({title, type, className, pointColor, onClick, testid}){
   return(
-    <Submit className={className} data-testid={testid} pointColor={pointColor} unActive={unActive} title={title} type={type} onClick={onClick}>
+    <Submit className={className} data-testid={testid} pointColor={pointColor} title={title} type={type} onClick={onClick}>
       {title}
     </Submit>
   )
@@ -10,7 +10,7 @@ function FormButton({title, type, className, pointColor, onClick, testid, unActi
 
 const Submit = styled.button`
   background: ${props=>props.pointColor? "#44628E" : "#fff" };
-  color: ${props=>props.pointColor? "#fff" : "#44628E" };
+  color: ${props=>props.pointColor? "#fff" : "#000" };
   border: 1px solid ${props=>props.pointColor? "#fff":"#44628E"};
   width: 100%;
   border-radius: 5px;
