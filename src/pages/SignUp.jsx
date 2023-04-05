@@ -12,13 +12,16 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [emailErrormsg, setEmailErrormsg] = useState('');
   const [passwordErrormsg, setPasswordErrormsg] = useState('');
+  const [validationEmail, setValidationEmail] = useState(0);
+  const [validationPassword, setValidationPassword] = useState(0);
 
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     const currentValue = e.target.value;
     setEmail(currentValue);
-    
+    setValidationEmail(0)
+
     if(!currentValue){
       setEmailErrormsg('이메일을 입력해주세요.');
     } else if(currentValue.trim() === ''){
@@ -29,22 +32,26 @@ function SignUp() {
       setEmailErrormsg('@는 한번만 사용 가능합니다.');
     } else{
       setEmailErrormsg('');
+      setValidationEmail(1)
     }
   }
   
   const handlePasswordChange = (e) => {
     const currentValue = e.target.value;
     setPassword(currentValue);
+    setValidationPassword(0);
 
     if(!(currentValue.length >= 8)){
       setPasswordErrormsg('비밀번호는 8자 이상이어야 합니다.');
     } else{
       setPasswordErrormsg('');
+      setValidationPassword(1);
     }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('회원가입 완료');
   }
   
   const handleBackPage = (e) => {
@@ -65,7 +72,7 @@ function SignUp() {
           <p>{passwordErrormsg}</p>
           <ButtonBox>
             <FormButton title="취소" type="button" onClick={handleBackPage} />
-            <FormButton testid="signup-button" title="회원가입" type="button" pointColor onClick={handleSubmit} />
+            <FormButton testid="signup-button" title="회원가입" type="button" pointColor onClick={handleSubmit} disabled={validationEmail&&validationPassword?false:true} />
           </ButtonBox>
         </fieldset>
       </Form>
