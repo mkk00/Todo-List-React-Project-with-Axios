@@ -5,12 +5,12 @@ import styled from "styled-components";
 function Nav() {
   return(
     <NavBar>
-      <Ul>
+      <NavList>
         <Link to="/">홈</Link>
         <Link to="/signin">로그인</Link>
         <Link to="/signup">회원가입</Link>
         <Link to="/todo">할일</Link>
-      </Ul>
+      </NavList>
     </NavBar>
   )
 }
@@ -23,7 +23,7 @@ const NavBar = styled.nav`
   left: 0;
 `
 
-const Ul = styled.ul`
+const NavList = styled.div`
   width: 500px;
   height: 80px;
   margin: 0 auto;
