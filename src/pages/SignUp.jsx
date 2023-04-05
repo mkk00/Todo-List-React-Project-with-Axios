@@ -1,4 +1,4 @@
-import { useState } from "react"; 'react';
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -68,12 +68,12 @@ function SignUp() {
           <legend>회원가입 폼</legend>
           <FormInput label="이메일" name="email" placeholder="mkk@email.com" testid="email-input" type="eamil" value={email} onChange={handleEmailChange} />
           <FormInput label="비밀번호" name="password" placeholder="비밀번호" testid="password-input" type="password" value={password} onChange={handlePasswordChange} />
-          <p>{emailErrormsg}</p>
-          <p>{passwordErrormsg}</p>
           <ButtonBox>
             <FormButton title="취소" type="button" onClick={handleBackPage} />
             <FormButton testid="signup-button" title="회원가입" type="button" pointColor onClick={handleSubmit} disabled={validationEmail&&validationPassword?false:true} />
           </ButtonBox>
+          <p>{emailErrormsg}</p>
+          <p>{passwordErrormsg}</p>
         </fieldset>
       </Form>
     </section>
@@ -93,7 +93,6 @@ const Form = styled.form`
   p{
     text-align: center;
     color: red;
-    height: 15px;
   }
 `
 
