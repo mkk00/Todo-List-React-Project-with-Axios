@@ -42,7 +42,14 @@ const GlobalStyle = createGlobalStyle`
 
   .container{
     width: 1024px;
-    margin: 120px auto;
+    margin: 150px auto;
+  }
+
+  .sectionTitle{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0;
   }
 `;
 

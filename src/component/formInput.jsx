@@ -23,6 +23,9 @@ const Input = styled.div`
   input::placeholder{
     color: #999;
   }
+  input:focus{
+    outline: none;
+  }
 `
 
 export default FormInput;
