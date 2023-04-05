@@ -49,6 +49,11 @@ const Ul = styled.ul`
     color: #fff;
     transition: 0.5s;
   }
+
+  & a:first-child{
+    background-color: #44628E;
+    color: #fff;    
+  }
 `
 
 export default Nav;
