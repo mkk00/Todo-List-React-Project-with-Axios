@@ -51,7 +51,7 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('회원가입 완료');
+    navigate('/signin');
   }
   
   const handleBackPage = (e) => {
