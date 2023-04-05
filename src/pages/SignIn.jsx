@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
 
@@ -12,6 +12,8 @@ function SignIn() {
   const [password, setPassword] = useState('');
   const [emailErrormsg, setEmailErrormsg] = useState('');
   const [passwordErrormsg, setPasswordErrormsg] = useState('');
+
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     const currentValue = e.target.value;
@@ -41,6 +43,16 @@ function SignIn() {
     }
   }
 
+  const handleSubmitLogin = (e) => {
+    e.preventDefault();
+    navigate('/todo');
+  }
+
+  const handleGoSignup = (e) => {
+    e.preventDefault();
+    navigate('/signup');
+  }
+
   return(
     <section className="container">
       <Divider />
@@ -51,8 +63,8 @@ function SignIn() {
           <FormInput className="a11yHidden" id="loginId" label="이메일" name="email" placeholder="mkk@email.com" testid="email-input" type="eamil" value={email} onChange={handleEmailChange} />
           <FormInput className="a11yHidden" id="loginPassword" label="비밀번호" name="password" placeholder="비밀번호" testid="password-input" type="password" value={password} onChange={handlePasswordChange} />
         <div className="buttonBox">
-          <FormButton testid="signin-button" title="로그인" type="button" />
-          <FormButton testud="signup-button" title="회원가입" type="button" pointColor />
+          <FormButton testid="signin-button" title="로그인" type="button" onClick={handleSubmitLogin} />
+          <FormButton testud="signup-button" title="회원가입" type="button" pointColor onClick={handleGoSignup} />
         </div>
         <p>{emailErrormsg}</p>
         <p>{passwordErrormsg}</p>
