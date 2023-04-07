@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import axios from "axios";
 import styled from "styled-components";
 
 import FormInput from "../component/formInput";
@@ -18,7 +19,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
-    const currentValue = e.target.value;
+    const currentValue = e.target.value.toLowerCase();
     setEmail(currentValue);
     setValidationEmail(0)
 
@@ -35,9 +36,9 @@ function SignUp() {
       setValidationEmail(1)
     }
   }
-  
+
   const handlePasswordChange = (e) => {
-    const currentValue = e.target.value;
+    const currentValue = e.target.value.toLowerCase();    
     setPassword(currentValue);
     setValidationPassword(0);
 
@@ -49,11 +50,23 @@ function SignUp() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/signin');
+
+    axios({
+      method: 'post',
+      url: 'https://www.pre-onboarding-selection-task.shop/auth/signup',
+      headers: {"Content-Type": "application/json"},
+      data: {email, password}
+    })
+    .then((res) => {
+      console.log("status: ", res.status);
+      alert(`회원가입 완료!\n - email: ${email}\n - password: ${password}`);
+      navigate('/signin');
+    })
+    .catch(err=>console.log(err));
   }
-  
+
   const handleBackPage = (e) => {
     e.preventDefault();
     navigate(-1);
