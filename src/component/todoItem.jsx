@@ -3,10 +3,10 @@ import styled from "styled-components";
 import FormInput from "../component/formInput";
 import FormButton from "../component/button";
 
-function TodoItem({content}){
+function TodoItem({content, onChange}){
   return(
     <List>
-      <FormInput type="checkbox" />
+      <FormInput name="isCompleted" type="checkbox" onChange={onChange} />
       <span>{content}</span>
       <FormButton title="수정" type="button" />
       <FormButton title="삭제" type="button" />
@@ -14,7 +14,7 @@ function TodoItem({content}){
   )
 }
 
-const List = styled.li`
+const List = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
