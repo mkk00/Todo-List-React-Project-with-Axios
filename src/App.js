@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom';
 
 import GlobalStyle from './style/globalstyle';
-import Nav from './component/Nav.jsx';
+import Header from './component/Header.jsx';
 function App() {
   return (
     <div className="App">
       <GlobalStyle />
-      <Nav />
+      <Header />
       <Outlet />
     </div>
   );

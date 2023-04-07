@@ -2,29 +2,51 @@ import { Link } from 'react-router-dom';
 
 import styled from "styled-components";
 
-function Nav() {
+import LoginInfo from './loginInfo.jsx';
+
+import logo from '../assets/logo.png';
+
+function Header() {  
   return(
     <NavBar>
-      <NavList>
-        <Link to="/">홈</Link>
-        <Link to="/signin">로그인</Link>
-        <Link to="/signup">회원가입</Link>
-        <Link to="/todo">할일</Link>
-      </NavList>
+      <div className="navWrapper">
+        <Link to="/">
+          <img src={logo} alt="mkk 로고" />
+        </Link>        
+        <NavList>
+          <Link to="/">홈</Link>
+          <Link to="/signin">로그인</Link>
+          <Link to="/signup">회원가입</Link>
+          <Link to="/todo">할일</Link>
+        </NavList>
+        <LoginInfo />
+      </div>
     </NavBar>
   )
 }
 
 const NavBar = styled.nav`
   width: 100%;
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 4px double #bdcfe9;
   position: fixed;
   top: 0;
   left: 0;
-`
+  
+  img{
+    width: 90px;
+    margin-top: 24px;
+  }
+
+  .navWrapper{
+    width: 820px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  `
 
 const NavList = styled.div`
-  width: 500px;
+  width: 480px;
   height: 80px;
   margin: 0 auto;
   display: flex;
@@ -56,4 +78,4 @@ const NavList = styled.div`
   }
 `
 
-export default Nav;
+export default Header;
