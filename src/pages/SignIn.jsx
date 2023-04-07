@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import axios from "axios";
 import styled from "styled-components";
 
 import FormInput from "../component/formInput";
@@ -16,7 +17,7 @@ function SignIn() {
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
-    const currentValue = e.target.value;
+    const currentValue = e.target.value.toLowerCase();
     setEmail(currentValue);
 
     if(!currentValue){
@@ -45,7 +46,22 @@ function SignIn() {
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
-    navigate('/todo');
+
+    axios({
+      method: 'post',
+      url: 'https://www.pre-onboarding-selection-task.shop/auth/signin',
+      headers: {"Content-Type": "application/json"},
+      data: {email, password}
+    })
+    .then((res) => {
+      localStorage.setItem("accessToken", `Barear ${res.data.access_token}`);
+      alert(`${email.split('@')[0]} 님, 환영합니다!`);
+      navigate('/todo'); 
+    })
+    .catch(err=>{
+      console.log(err);
+      alert('잘못된 회원 정보입니다.');
+    })
   }
 
   const handleGoSignup = (e) => {
