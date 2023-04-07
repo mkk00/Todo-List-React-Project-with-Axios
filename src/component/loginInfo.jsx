@@ -1,18 +1,32 @@
+import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styled from "styled-components";
 
 function LoginInfo(){
+  const navigate = useNavigate();
+  const [token, setToken] = useState('')
   const userInfo = localStorage.getItem('accessToken');
+
+  useEffect(()=>{
+    const userInfo = localStorage.getItem('accessToken');
+    if(userInfo){
+      setToken(userInfo);
+    } else {
+      setToken('');
+    }
+  }, [userInfo])
+
   const handleLogout = (e)=>{
     e.preventDefault();
     localStorage.removeItem('accessToken');
+    setToken('');
+    navigate('/');
   }
   return (
     <UserLoginInfo className="wrapper">
-      {userInfo ?
+      {token ?
         <>
-          <div className="userInformation">
-            반갑습니다.
-          </div>
           <button type="button" onClick={handleLogout}>
             로그아웃
           </button>
@@ -40,6 +54,9 @@ const UserLoginInfo = styled.div`
 
   button{
     width: 80px;
+    height: 30px;
+    background: none;
+    border: 1px solid #44628E;
   }
 `
 
