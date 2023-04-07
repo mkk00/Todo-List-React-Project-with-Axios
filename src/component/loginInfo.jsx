@@ -18,8 +18,7 @@ function LoginInfo(){
           </button>
         </> :
         <span>
-          로그인이 필요한<br/>
-          서비스입니다.
+          로그인해주세요.
         </span>
       }
     </UserLoginInfo>

@@ -1,3 +1,6 @@
+import {useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styled from "styled-components";
 
 import FormInput from "../component/formInput";
@@ -6,6 +9,15 @@ import Divider from "../component/divider";
 import TodoItem from "../component/todoItem";
 
 function Todo() {
+  const navigate = useNavigate();
+
+  useEffect(() =>{
+    if(!localStorage.getItem('accessToken')){
+      alert(`로그인이 필요한 서비스입니다.\n로그인 페이지로 이동합니다.`);
+      navigate('/signin');
+    }
+  }, [])
+
   return(
     <section className="container">
       <Divider />
