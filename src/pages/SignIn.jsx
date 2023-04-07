@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
@@ -68,6 +68,13 @@ function SignIn() {
     e.preventDefault();
     navigate('/signup');
   }
+
+  useEffect(()=>{
+    if(localStorage.getItem('accessToken')){
+      alert(`이미 로그인한 회원입니다.\nTodoList 페이지로 이동합니다.`);
+      navigate('/todo');
+    }
+  }, [])
 
   return(
     <section className="container">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
@@ -61,16 +61,27 @@ function SignUp() {
     })
     .then((res) => {
       console.log("status: ", res.status);
+      console.log(email, password);
       alert(`회원가입 완료!\n - email: ${email}\n - password: ${password}`);
       navigate('/signin');
     })
-    .catch(err=>console.log(err));
+    .catch(err=>{
+      console.log(err);
+      alert('이미 존재하는 계정입니다.');
+    });
   }
 
   const handleBackPage = (e) => {
     e.preventDefault();
     navigate(-1);
   }
+
+  useEffect(()=>{
+    if(localStorage.getItem('accessToken')){
+      alert(`이미 회원 정보가 있습니다.\nTodoList 페이지로 이동합니다.`);
+      navigate('/todo');
+    }
+  }, [])
 
   return(
     <section className="container">
