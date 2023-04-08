@@ -36,6 +36,7 @@ function Todo() {
       edit: false
     })
   }
+
   const editButton = (e, index)=>{
     e.preventDefault;
     setCreateTodoArr((prev)=>{
@@ -44,6 +45,16 @@ function Todo() {
       return isEdit;
     })
   }
+
+  const removeButton = (e, index)=>{
+    e.preventDefault;
+    setCreateTodoArr((prev)=>{
+      const removeTodo = [...prev]
+      removeTodo.splice(index, 1);
+      return removeTodo;
+    })
+  }
+
   const cancelButton = (e, index)=>{
     e.preventDefault;
     setCreateTodoArr((prev)=>{
@@ -121,7 +132,7 @@ function Todo() {
                   :
                   <>
                     <FormButton title="수정" type="button" onClick={()=>editButton(e, index)} />
-                    <FormButton title="삭제" type="button" />
+                    <FormButton title="삭제" type="button" onClick={()=>removeButton(e, index)}/>
                   </>
                 }
               </li>
