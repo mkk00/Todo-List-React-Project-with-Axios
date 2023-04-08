@@ -9,13 +9,12 @@ import Divider from "../component/divider";
 import TodoItem from "../component/todoItem";
 
 function Todo() {
-  const [state, setState] = useState(0);  
   const [createTodo, setCreateTodo] = useState({
-    id: "",
     todo: "",
     isCompleted: false,
     userId: ''
   });
+  const [contentArr, setContentArr] = useState([]);
   const [content, setContent] = useState([]);
   
   const navigate = useNavigate();
@@ -34,12 +33,15 @@ function Todo() {
       ...content,
       createTodo.todo
     ])
+    setContentArr([
+      ...contentArr,
+      createTodo
+    ])
     setCreateTodo({
-      id: state?content.length:'',
       todo: "",
       isCompleted: false,
       userId: ''
-    });
+    })
   }
   
   const handleIsCompleted = (e) => {
@@ -49,14 +51,14 @@ function Todo() {
       isCompleted: !createTodo.isCompleted
     })
   }
-
+  
   useEffect(() =>{
     if(!localStorage.getItem('accessToken')){
       alert(`로그인이 필요한 서비스입니다.\n로그인 페이지로 이동합니다.`);
       navigate('/signin');
     }
-    setState(1);
-    console.log(createTodo);
+    console.log(contentArr);    
+    console.log(content);
   }, [content])
 
   return(
@@ -72,9 +74,9 @@ function Todo() {
           </div>
           <TodoList>
             {
-              content.map((arr)=>(
-                <li key={createTodo.id}>
-                  <TodoItem onChange={handleIsCompleted} content={arr} />
+              contentArr.map((arr, index)=>(
+                <li key={index + "번째 할일"}>
+                  <TodoItem originContent={arr.todo} onChange={handleIsCompleted} />
                 </li>
               ))
             }
