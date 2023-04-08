@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-function FormInput({inputId, type, label, onChange, name, required, value, className, placeholder, disabled, testid}){
+function FormInput({checked, inputId, type, label, onChange, name, required, value, className, placeholder, disabled, testid}){
   return(
     <Input className={inputId}>
       <label className={className} htmlFor={inputId}>{label}</label>
-      <input data-testid={testid} disabled={disabled} id={inputId} name={name} placeholder={placeholder} required={required} type={type} value={value} onChange={onChange} />
+      <input checked={checked} data-testid={testid} disabled={disabled} id={inputId} name={name} placeholder={placeholder} required={required} type={type} value={value} onChange={onChange} />
     </Input>
   )
 }

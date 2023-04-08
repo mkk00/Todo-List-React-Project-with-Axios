@@ -5,6 +5,9 @@ import { reset } from 'styled-reset'
 const GlobalStyle = createGlobalStyle`
   ${reset}
   ${normalize}
+  *{
+    box-sizing: border-box;
+  }
   html{
     scroll-behavior: smooth;
   }

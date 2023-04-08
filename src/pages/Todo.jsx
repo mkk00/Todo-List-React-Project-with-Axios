@@ -6,60 +6,81 @@ import styled from "styled-components";
 import FormInput from "../component/formInput";
 import FormButton from "../component/button";
 import Divider from "../component/divider";
-import TodoItem from "../component/todoItem";
 
 function Todo() {
+  const navigate = useNavigate();
+  const [createTodoArr, setCreateTodoArr] = useState([]);
   const [createTodo, setCreateTodo] = useState({
     todo: "",
     isCompleted: false,
-    userId: ''
+    edit: false
   });
-  const [contentArr, setContentArr] = useState([]);
-  const [content, setContent] = useState([]);
-  
-  const navigate = useNavigate();
 
-  const addNewToto = (e) => {
+  const inputNewItem = (e)=>{
     setCreateTodo({
       ...createTodo,
       [e.target.name]: e.target.value
     });
   }
-
-  const addNewTodoButton = (e) => {
+  
+  const addTodoItem = (e)=>{
     e.preventDefault();
-    if(!createTodo.todo) return;
-    setContent([
-      ...content,
-      createTodo.todo
-    ])
-    setContentArr([
-      ...contentArr,
+    if(createTodo.todo==="") return;
+    setCreateTodoArr([
+      ...createTodoArr,
       createTodo
     ])
     setCreateTodo({
       todo: "",
       isCompleted: false,
-      userId: ''
+      edit: false
     })
   }
-  
-  const handleIsCompleted = (e) => {
-    e.stopPropagation();
-    setCreateTodo({
-      ...createTodo,
-      isCompleted: !createTodo.isCompleted
+  const editButton = (e, index)=>{
+    e.preventDefault;
+    setCreateTodoArr((prev)=>{
+      const isEdit = [...prev]
+      isEdit[index].edit = true;
+      return isEdit;
     })
   }
-  
-  useEffect(() =>{
+  const cancelButton = (e, index)=>{
+    e.preventDefault;
+    setCreateTodoArr((prev)=>{
+      const isEdit = [...prev]
+      isEdit[index].edit = false;
+      return isEdit;
+    })
+  }
+
+  const submitButton = (e, index, newValue)=>{
+    e.preventDefault;
+    setCreateTodoArr((prev)=>{
+      const submitEdit = [...prev]
+      submitEdit[index].edit = false;
+      submitEdit[index].todo = newValue;
+      return submitEdit;
+    })
+  }
+
+  const isChecked = (index)=>{
+    setCreateTodoArr((prev)=>{
+      const CompleteItem = [...prev];
+      if(CompleteItem[index].isCompleted){
+        CompleteItem[index].isCompleted = false;
+      } else{
+        CompleteItem[index].isCompleted = true;
+      }
+      return CompleteItem;
+    })
+  }
+
+  useEffect(()=>{
     if(!localStorage.getItem('accessToken')){
       alert(`로그인이 필요한 서비스입니다.\n로그인 페이지로 이동합니다.`);
       navigate('/signin');
     }
-    console.log(contentArr);    
-    console.log(content);
-  }, [content])
+  }, [createTodoArr])
 
   return(
     <section className="container">
@@ -68,19 +89,45 @@ function Todo() {
       <Form>
         <fieldset>
           <legend>To do List</legend>
-          <div className="newTodo">
-            <FormInput className="a11yHidden" name="todo" placeholder="새 할일을 추가해보세요." id="newTodoInput" label="새 할일" testid="new-todo-input" value={createTodo.todo} onChange={addNewToto} />
-            <FormButton className="addNewTodo" testid="new-todo-add-button" title="추가" pointColor onClick={addNewTodoButton} />
-          </div>
-          <TodoList>
-            {
-              contentArr.map((arr, index)=>(
-                <li key={index + "번째 할일"}>
-                  <TodoItem originContent={arr.todo} onChange={handleIsCompleted} />
-                </li>
-              ))
-            }
-          </TodoList>
+        <div className="newTodo">
+          <FormInput className="a11yHidden" id="inputNewTodo" value={createTodo.todo} name="todo" placeholder="새 할일을 추가해보세요." onChange={inputNewItem} />
+          <FormButton className="addButton" title="추가" onClick={addTodoItem} pointColor/>
+        </div>
+        <TodoList>
+          {
+            createTodoArr.map((arr, index, e)=>(
+              <li key={index+'번째 할일'}>
+                <FormInput checked={arr.isCompleted} className="a11yHidden" id="checkBox" type="checkbox" onChange={()=>isChecked(index)} />
+                {
+                  arr.edit ?
+                    <FormInput value={arr.todo} className="a11yHidden" inputId="editInputBox" onChange={(e)=>{
+                      setCreateTodoArr(prev=>{
+                        const newEditTodo = [...prev];
+                        newEditTodo[index].todo = e.target.value
+                        return newEditTodo;
+                      })
+                    }}/>
+                  :
+                  <>
+                    <span>{arr.todo}</span>
+                  </>
+                }
+                {
+                  arr.edit ?
+                  <>
+                    <FormButton title="제출" type="button" onClick={()=>submitButton(e, index, arr.todo)} />
+                    <FormButton title="수정취소" type="button" onClick={()=>cancelButton(e, index)} />
+                  </>
+                  :
+                  <>
+                    <FormButton title="수정" type="button" onClick={()=>editButton(e, index)} />
+                    <FormButton title="삭제" type="button" />
+                  </>
+                }
+              </li>
+            ))
+          }
+        </TodoList>
         </fieldset>
       </Form>
     </section>
@@ -88,30 +135,50 @@ function Todo() {
 }
 
 const Form = styled.form`
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
 
   .newTodo{
+    width: 500px;
     display: flex;
-    justify-content: space-between;
     gap: 20px;
-  }
 
+    .inputNewTodo{
+      width: 400px;
+    }
+    input{
+      width: 400px;
+    }
+  }
   input{
-    width: 300px;
+    display: inline-block;
   }
-
-  .addNewTodo{
+  button {
     width: 80px;
+    height: 40px;
   }
 `
 
-const TodoList = styled.ul`
+const TodoList = styled.ul`  
   margin-top: 40px;
-  & input{
-    width: 28px;
-    cursor: pointer;
+
+  li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    input[type="checkbox"]{
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+    }
+
+    #editInputBox, span{
+      width: 252px;
+    }
   }
+  
 `
 
 export default Todo;

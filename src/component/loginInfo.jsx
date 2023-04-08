@@ -21,7 +21,7 @@ function LoginInfo(){
     e.preventDefault();
     localStorage.removeItem('accessToken');
     setToken('');
-    navigate('/');
+    if(!localStorage.getItem('accessToken')) navigate('/');
   }
   return (
     <UserLoginInfo className="wrapper">
