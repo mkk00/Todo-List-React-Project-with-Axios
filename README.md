@@ -19,7 +19,7 @@ npm start
 `React`, `styled-component`
 
 ## 3. 데모 영상
-준비중
+[데모 영상 링크](https://github.com/tiramin/wanted-pre-onboarding-frontend/issues/19)
 
 ## 4. 경로
   - **`/`** : 메인화면
