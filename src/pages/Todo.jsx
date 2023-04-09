@@ -148,7 +148,7 @@ function Todo() {
                 <FormInput checked={arr.isCompleted} className="a11yHidden" inputId="checkBox" type="checkbox" onChange={()=>isChecked(index, arr.id)} />
                 {
                   arr.edit ?
-                    <FormInput value={arr.todo} className="a11yHidden" inputId="editInputBox" onChange={(e)=>{
+                    <FormInput testid="modify-input" value={arr.todo} className="a11yHidden" inputId="editInputBox" onChange={(e)=>{
                       setCreateTodoArr(prev=>{
                         const newEditTodo = [...prev];
                         newEditTodo[index].todo = e.target.value
@@ -167,13 +167,13 @@ function Todo() {
                 {
                   arr.edit ?
                   <>
-                    <FormButton title="제출" type="button" onClick={()=>submitButton(e, index, arr.todo, arr.id)} />
-                    <FormButton title="수정취소" type="button" onClick={()=>cancelButton(e, index)} />
+                    <FormButton testid="submit-button" title="제출" type="button" onClick={()=>submitButton(e, index, arr.todo, arr.id)} />
+                    <FormButton testid="cancel-button" title="수정취소" type="button" onClick={()=>cancelButton(e, index)} />
                   </>
                   :
                   <>
-                    <FormButton title="수정" type="button" onClick={()=>editButton(e, index)} />
-                    <FormButton title="삭제" type="button" onClick={()=>removeButton(e, index, arr.id)}/>
+                    <FormButton testid="modify-button" title="수정" type="button" onClick={()=>editButton(e, index)} />
+                    <FormButton testid="delete-button" title="삭제" type="button" onClick={()=>removeButton(e, index, arr.id)}/>
                   </>
                 }
               </li>
