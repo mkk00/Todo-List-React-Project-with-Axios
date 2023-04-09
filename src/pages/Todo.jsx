@@ -51,8 +51,9 @@ function Todo() {
     .catch(err=>console.log(err))
   }
 
-  const editButton = (e, index)=>{
+  const editButton = async (e, index, id)=>{
     e.preventDefault;
+        
     setCreateTodoArr((prev)=>{
       const isEdit = [...prev]
       isEdit[index].edit = true;
@@ -69,7 +70,6 @@ function Todo() {
     })
     .then(res=>console.log(res))
     .catch(err=>console.log(err))
-
     setCreateTodoArr((prev)=>{
       const removeTodo = [...prev]
       removeTodo.splice(index, 1);
@@ -86,12 +86,17 @@ function Todo() {
     })
   }
 
-  const submitButton = async (e, index, newValue)=>{
+  const submitButton = async (e, index, newValue, id)=>{
+    e.preventDefault;
     setCreateTodoArr((prev)=>{
       const submitEdit = [...prev]
       submitEdit[index].edit = false;
       submitEdit[index].todo = newValue;
       return submitEdit;
+    })
+    await todoApi.put(`/todos/${id}`,{
+      todo: createTodoArr[index].todo,
+      isCompleted: createTodoArr[index].isCompleted,
     })
   }
 
@@ -158,7 +163,7 @@ function Todo() {
                 {
                   arr.edit ?
                   <>
-                    <FormButton title="제출" type="button" onClick={()=>submitButton(e, index, arr.todo)} />
+                    <FormButton title="제출" type="button" onClick={()=>submitButton(e, index, arr.todo, arr.id)} />
                     <FormButton title="수정취소" type="button" onClick={()=>cancelButton(e, index)} />
                   </>
                   :
