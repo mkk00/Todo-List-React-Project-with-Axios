@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// import axios from "axios";
 import styled from "styled-components";
 
 import FormInput from "../component/formInput";
@@ -61,7 +60,7 @@ function Todo() {
     })
   }
 
-  const removeButton = (e, index)=>{
+  const removeButton = async (e, index)=>{
     e.preventDefault;
     setCreateTodoArr((prev)=>{
       const removeTodo = [...prev]
@@ -106,8 +105,13 @@ function Todo() {
       navigate('/signin');
     }
 
+    const getTodoItem = async () =>{
+      await todoApi.get("/todos")
+      .then(res=>setCreateTodoArr(res.data));
+    }
+    getTodoItem();
 
-  }, [createTodoArr])
+  }, [])
 
   return(
     <section className="container">
