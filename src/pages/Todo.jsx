@@ -1,11 +1,14 @@
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// import axios from "axios";
 import styled from "styled-components";
 
 import FormInput from "../component/formInput";
 import FormButton from "../component/button";
 import Divider from "../component/divider";
+import todoApi from "../api/todo.api";
+
 
 function Todo() {
   const navigate = useNavigate();
@@ -13,7 +16,7 @@ function Todo() {
   const [createTodo, setCreateTodo] = useState({
     todo: "",
     isCompleted: false,
-    edit: false
+    edit: false,
   });
 
   const inputNewItem = (e)=>{
@@ -22,19 +25,31 @@ function Todo() {
       [e.target.name]: e.target.value
     });
   }
-  
-  const addTodoItem = (e)=>{
+
+  const addTodoItem = async (e)=>{
     e.preventDefault();
+
     if(createTodo.todo==="") return;
-    setCreateTodoArr([
-      ...createTodoArr,
-      createTodo
-    ])
-    setCreateTodo({
-      todo: "",
-      isCompleted: false,
-      edit: false
+
+    await todoApi.post("/todos",{
+      todo: createTodo.todo,
+      isCompleted: createTodo.isCompleted,
     })
+    .then(
+      setCreateTodoArr([
+        ...createTodoArr,
+        createTodo
+      ])
+    )
+    .then(
+      setCreateTodo({
+        todo: "",
+        isCompleted: false,
+        edit: false
+      })
+    )
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
   }
 
   const editButton = (e, index)=>{
@@ -64,8 +79,7 @@ function Todo() {
     })
   }
 
-  const submitButton = (e, index, newValue)=>{
-    e.preventDefault;
+  const submitButton = async (e, index, newValue)=>{
     setCreateTodoArr((prev)=>{
       const submitEdit = [...prev]
       submitEdit[index].edit = false;
@@ -87,23 +101,30 @@ function Todo() {
   }
 
   useEffect(()=>{
-    if(!localStorage.getItem('accessToken')){
+    if(!localStorage.getItem('access_token')){
       alert(`로그인이 필요한 서비스입니다.\n로그인 페이지로 이동합니다.`);
       navigate('/signin');
     }
+
+
   }, [createTodoArr])
 
   return(
     <section className="container">
       <Divider />
       <h2 className="sectionTitle">Today Todo</h2>
+      <FormNewItem>
+        <fieldset>
+          <legend>New Todo List</legend>
+          <div className="newTodo">
+            <FormInput className="a11yHidden" id="inputNewTodo" value={createTodo.todo} name="todo" placeholder="새 할일을 추가해보세요." onChange={inputNewItem} />
+            <FormButton className="addButton" title="추가" onClick={addTodoItem} type="submit" pointColor/>
+          </div>
+        </fieldset>
+      </FormNewItem>
       <Form>
         <fieldset>
-          <legend>To do List</legend>
-        <div className="newTodo">
-          <FormInput className="a11yHidden" id="inputNewTodo" value={createTodo.todo} name="todo" placeholder="새 할일을 추가해보세요." onChange={inputNewItem} />
-          <FormButton className="addButton" title="추가" onClick={addTodoItem} pointColor/>
-        </div>
+        <legend>Todo List</legend>
         <TodoList>
           {
             createTodoArr.map((arr, index, e)=>(
@@ -145,10 +166,9 @@ function Todo() {
   )
 }
 
-const Form = styled.form`
+const FormNewItem = styled.form`
   width: 500px;
   margin: 0 auto;
-
   .newTodo{
     width: 500px;
     display: flex;
@@ -160,10 +180,17 @@ const Form = styled.form`
     input{
       width: 400px;
     }
+    button {
+      width: 80px;
+      height: 40px;
+    }
   }
-  input{
-    display: inline-block;
-  }
+`
+
+const Form = styled.form`
+  width: 500px;
+  margin: 0 auto;
+
   button {
     width: 80px;
     height: 40px;
