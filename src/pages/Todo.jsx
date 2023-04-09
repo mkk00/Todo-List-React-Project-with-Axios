@@ -187,6 +187,7 @@ const TodoList = styled.ul`
 
     #editInputBox, span{
       width: 252px;
+      word-wrap: break-word;
     }
   }
   
