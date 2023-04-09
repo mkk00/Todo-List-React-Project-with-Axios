@@ -60,8 +60,16 @@ function Todo() {
     })
   }
 
-  const removeButton = async (e, index)=>{
+  const removeButton = async (e, index, id)=>{
     e.preventDefault;
+
+    await todoApi.delete(`/todos/${id}`,{
+      todo: createTodo.todo,
+      isCompleted: createTodo.isCompleted,
+    })
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+
     setCreateTodoArr((prev)=>{
       const removeTodo = [...prev]
       removeTodo.splice(index, 1);
@@ -110,7 +118,6 @@ function Todo() {
       .then(res=>setCreateTodoArr(res.data));
     }
     getTodoItem();
-
   }, [])
 
   return(
@@ -157,7 +164,7 @@ function Todo() {
                   :
                   <>
                     <FormButton title="수정" type="button" onClick={()=>editButton(e, index)} />
-                    <FormButton title="삭제" type="button" onClick={()=>removeButton(e, index)}/>
+                    <FormButton title="삭제" type="button" onClick={()=>removeButton(e, index, arr.id)}/>
                   </>
                 }
               </li>
