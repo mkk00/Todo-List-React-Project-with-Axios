@@ -100,7 +100,7 @@ function Todo() {
     })
   }
 
-  const isChecked = (index)=>{
+  const isChecked = async (index, id)=>{
     setCreateTodoArr((prev)=>{
       const CompleteItem = [...prev];
       if(CompleteItem[index].isCompleted){
@@ -110,6 +110,11 @@ function Todo() {
       }
       return CompleteItem;
     })
+    await todoApi.put(`/todos/${id}`,{
+      todo: createTodoArr[index].todo,
+      isCompleted: !createTodoArr[index].isCompleted,
+    })
+    console.log(createTodoArr);
   }
 
   useEffect(()=>{
@@ -129,23 +134,18 @@ function Todo() {
     <section className="container">
       <Divider />
       <h2 className="sectionTitle">Today Todo</h2>
-      <FormNewItem>
+      <Form>
         <fieldset>
           <legend>New Todo List</legend>
           <div className="newTodo">
             <FormInput className="a11yHidden" id="inputNewTodo" value={createTodo.todo} name="todo" placeholder="새 할일을 추가해보세요." onChange={inputNewItem} />
             <FormButton className="addButton" title="추가" onClick={addTodoItem} type="submit" pointColor/>
           </div>
-        </fieldset>
-      </FormNewItem>
-      <Form>
-        <fieldset>
-        <legend>Todo List</legend>
         <TodoList>
           {
             createTodoArr.map((arr, index, e)=>(
               <li key={index+'번째 할일'}>
-                <FormInput checked={arr.isCompleted} className="a11yHidden" id="checkBox" type="checkbox" onChange={()=>isChecked(index)} />
+                <FormInput checked={arr.isCompleted} className="a11yHidden" inputId="checkBox" type="checkbox" onChange={()=>isChecked(index, arr.id)} />
                 {
                   arr.edit ?
                     <FormInput value={arr.todo} className="a11yHidden" inputId="editInputBox" onChange={(e)=>{
@@ -157,7 +157,11 @@ function Todo() {
                     }}/>
                   :
                   <>
-                    <span>{arr.todo}</span>
+                    <span style={{
+                      color: `${arr.isCompleted?"lightgray":"black"}`,
+                      textDecoration: `${arr.isCompleted?"line-through":"none"}`,
+                      fontStyle: `${arr.isCompleted?"italic":"normal"}`
+                    }}>{arr.todo}</span>
                   </>
                 }
                 {
@@ -182,9 +186,10 @@ function Todo() {
   )
 }
 
-const FormNewItem = styled.form`
+const Form = styled.form`
   width: 500px;
   margin: 0 auto;
+
   .newTodo{
     width: 500px;
     display: flex;
@@ -196,16 +201,7 @@ const FormNewItem = styled.form`
     input{
       width: 400px;
     }
-    button {
-      width: 80px;
-      height: 40px;
-    }
   }
-`
-
-const Form = styled.form`
-  width: 500px;
-  margin: 0 auto;
 
   button {
     width: 80px;
@@ -232,8 +228,10 @@ const TodoList = styled.ul`
       width: 252px;
       word-wrap: break-word;
     }
-  }
-  
+    span{
+      color: ${props=>props.dataChecked? "#000":"#aaa"};
+    }
+  }  
 `
 
 export default Todo;
