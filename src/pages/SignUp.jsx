@@ -57,7 +57,7 @@ function SignUp() {
       method: 'post',
       url: 'https://www.pre-onboarding-selection-task.shop/auth/signup',
       headers: {"Content-Type": "application/json"},
-      data: {email, password}
+      data: {email:email, password:password}
     })
     .then((res) => {
       console.log("status: ", res.status);
@@ -77,7 +77,7 @@ function SignUp() {
   }
 
   useEffect(()=>{
-    if(localStorage.getItem('accessToken')){
+    if(localStorage.getItem('access_token')){
       alert(`이미 회원 정보가 있습니다.\nTodoList 페이지로 이동합니다.`);
       navigate('/todo');
     }

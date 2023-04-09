@@ -51,12 +51,12 @@ function SignIn() {
       method: 'post',
       url: 'https://www.pre-onboarding-selection-task.shop/auth/signin',
       headers: {"Content-Type": "application/json"},
-      data: {email, password}
+      data: {email:email, password:password}
     })
     .then((res) => {
-      localStorage.setItem("accessToken", `Barear ${res.data.access_token}`);
+      localStorage.setItem("access_token", `${res.data.access_token}`);
       alert(`${email.split('@')[0]} 님, 환영합니다!`);
-      navigate('/todo'); 
+      navigate('/todo');
     })
     .catch(err=>{
       console.log(err);
@@ -70,7 +70,7 @@ function SignIn() {
   }
 
   useEffect(()=>{
-    if(localStorage.getItem('accessToken')){
+    if(localStorage.getItem('access_token')){
       alert(`이미 로그인한 회원입니다.\nTodoList 페이지로 이동합니다.`);
       navigate('/todo');
     }

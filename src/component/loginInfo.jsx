@@ -6,10 +6,10 @@ import styled from "styled-components";
 function LoginInfo(){
   const navigate = useNavigate();
   const [token, setToken] = useState('')
-  const userInfo = localStorage.getItem('accessToken');
+  const userInfo = localStorage.getItem('access_token');
 
   useEffect(()=>{
-    const userInfo = localStorage.getItem('accessToken');
+    const userInfo = localStorage.getItem('access_token');
     if(userInfo){
       setToken(userInfo);
     } else {
@@ -19,9 +19,9 @@ function LoginInfo(){
 
   const handleLogout = (e)=>{
     e.preventDefault();
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('access_token');
     setToken('');
-    if(!localStorage.getItem('accessToken')) navigate('/');
+    if(!localStorage.getItem('access_token')) navigate('/');
   }
   return (
     <UserLoginInfo className="wrapper">
