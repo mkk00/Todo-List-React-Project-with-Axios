@@ -26,3 +26,7 @@ npm start
   - **`/signup`** :  회원가입
   - **`/signin`** : 로그인
   - **`/todo`** : Todo
+
+## 5. 테스트 계정
+- email : mkk@email.com
+- password : mkkmkkmkk
