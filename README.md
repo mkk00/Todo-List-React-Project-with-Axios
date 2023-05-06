@@ -19,10 +19,14 @@ npm start
 `React`, `styled-component`
 
 ## 3. 데모 영상
-준비중
+[데모 영상 링크](https://github.com/tiramin/wanted-pre-onboarding-frontend/issues/19)
 
 ## 4. 경로
   - **`/`** : 메인화면
   - **`/signup`** :  회원가입
   - **`/signin`** : 로그인
   - **`/todo`** : Todo
+
+## 5. 테스트 계정
+- email : mkk@email.com
+- password : mkkmkkmkk
