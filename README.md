@@ -22,7 +22,7 @@ npm start
 ## 2. 기술 스펙
 `React`, `styled-component`
 
-## 3. [배포 링크](simpletodolistofmkk.netlify.app/)
+## 3. [배포 링크](https://simpletodolistofmkk.netlify.app)
 
 ## 4. 경로
   - **`/`** : 메인화면
