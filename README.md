@@ -1,10 +1,14 @@
-# wanted-pre-onboarding-frontend
-원티드 프리온보딩 인턴십 사전과제
+# Simple Todo List
+axios 를 이용한 로그인/회원가입, Todo List 기능 구현 토이프로젝트입니다.
+
+<br>
+<img src="https://user-images.githubusercontent.com/92783354/236628203-454055ae-ae57-453b-a923-84cd9db4071a.png" alt="투두리스트 메인 페이지" width="800px" />
+<br>
 
 ## 1. 프로젝트 설치 및 실행 방법
 **✏️ clone**
 ```
-git clone https://github.com/tiramin/wanted-pre-onboarding-frontend.git
+git clone https://github.com/tiramin/Todo-List-React-Project-with-Axios.git
 ```
 **✏️ install**
 ```
@@ -18,8 +22,7 @@ npm start
 ## 2. 기술 스펙
 `React`, `styled-component`
 
-## 3. 데모 영상
-[데모 영상 링크](https://github.com/tiramin/wanted-pre-onboarding-frontend/issues/19)
+## 3. [배포 링크](simpletodolistofmkk.netlify.app/)
 
 ## 4. 경로
   - **`/`** : 메인화면
