@@ -47,8 +47,8 @@ function Todo() {
         edit: false
       })
     )
-    .then(res=>console.log(res))
     .catch(err=>console.log(err))
+    
   }
 
   const editButton = async (e, index, id)=>{
@@ -158,7 +158,7 @@ function Todo() {
                   :
                   <>
                     <span style={{
-                      color: `${arr.isCompleted?"lightgray":"black"}`,
+                      color: `${arr.isCompleted?"gray":"black"}`,
                       textDecoration: `${arr.isCompleted?"line-through":"none"}`,
                       fontStyle: `${arr.isCompleted?"italic":"normal"}`
                     }}>{arr.todo}</span>
@@ -229,7 +229,7 @@ const TodoList = styled.ul`
       word-wrap: break-word;
     }
     span{
-      color: ${props=>props.dataChecked? "#000":"#aaa"};
+      color: ${props=>props.dataChecked? "#000":"#333"};
     }
   }  
 `
